@@ -1,0 +1,604 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致婷婷</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF3366',
+                        secondary: '#FF85A1',
+                        accent: '#FFB6C1',
+                        love: '#E91E63',
+                        soft: '#FFF0F5',
+                        midnight: '#1A1A2E',
+                        taurus: '#FFD700', // 金牛座金色
+                        pisces: '#87CEFA', // 双鱼座蓝色
+                    },
+                    fontFamily: {
+                        love: ['Dancing Script', 'cursive', 'sans-serif'],
+                        main: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-heartbeat {
+                animation: heartbeat 1.5s ease-in-out infinite;
+            }
+            .glass {
+                background: rgba(255, 255, 255, 0.7);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .glass-dark {
+                background: rgba(26, 26, 46, 0.7);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .gradient-text {
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
+                background-image: linear-gradient(135deg, #FF3366, #E91E63);
+            }
+            .btn-hover {
+                transition: all 0.3s ease;
+            }
+            .btn-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(233, 30, 99, 0.4);
+            }
+            .timeline-point {
+                transition: all 0.3s ease;
+            }
+            .timeline-point:hover {
+                transform: scale(1.2);
+                z-index: 10;
+            }
+            .tooltip {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            .timeline-point:hover .tooltip {
+                opacity: 1;
+            }
+            .page-transition {
+                transition: opacity 0.5s ease-in-out;
+            }
+            .confetti {
+                position: absolute;
+                pointer-events: none;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(calc(100vh + 100px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen font-main overflow-x-hidden">
+    <!-- 粒子背景 -->
+    <div id="particles-js" class="fixed inset-0 -z-10"></div>
+    
+    <!-- 主容器 -->
+    <div id="app" class="container mx-auto px-4 py-8 max-w-4xl min-h-screen flex flex-col items-center justify-center relative z-10">
+        <!-- 时间胶囊区域 -->
+        <div id="timeCapsule" class="glass rounded-2xl shadow-xl p-8 mb-12 w-full max-w-4xl transform transition-all duration-500 hover:shadow-2xl">
+            <h2 class="text-2xl font-love font-bold text-center mb-6 gradient-text">我们的时间胶囊</h2>
+            <div class="relative h-20 flex items-center justify-between px-4">
+                <!-- 时间线 -->
+                <div class="absolute left-0 right-0 h-1 bg-gray-200 rounded-full"></div>
+                
+                <!-- 时间点 -->
+                <div class="timeline-point absolute z-10 w-6 h-6 rounded-full bg-love cursor-pointer" style="left: 10%;" data-date="2023-07-10">
+                    <div class="tooltip absolute -top-16 left-1/2 transform -translate-x-1/2 bg-midnight text-white text-xs px-3 py-2 rounded shadow-lg w-40">
+                        第一次相遇
+                        <div class="text-[10px] text-gray-300 mt-1">偶然的视频评论</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-point absolute z-10 w-6 h-6 rounded-full bg-love cursor-pointer" style="left: 40%;" data-date="2023-07-11">
+                    <div class="tooltip absolute -top-16 left-1/2 transform -translate-x-1/2 bg-midnight text-white text-xs px-3 py-2 rounded shadow-lg w-40">
+                        第一次通宵聊天
+                        <div class="text-[10px] text-gray-300 mt-1">聊到凌晨都不想睡</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-point absolute z-10 w-6 h-6 rounded-full bg-love cursor-pointer" style="left: 70%;" data-date="2023-07-12">
+                    <div class="tooltip absolute -top-16 left-1/2 transform -translate-x-1/2 bg-midnight text-white text-xs px-3 py-2 rounded shadow-lg w-40">
+                        第一次产生误会
+                        <div class="text-[10px] text-gray-300 mt-1">但也是更了解彼此的开始</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-point absolute z-10 w-6 h-6 rounded-full bg-love cursor-pointer" style="left: 90%;" data-date="今天">
+                    <div class="tooltip absolute -top-16 left-1/2 transform -translate-x-1/2 bg-midnight text-white text-xs px-3 py-2 rounded shadow-lg w-40">
+                        今天
+                        <div class="text-[10px] text-gray-300 mt-1">我想对你说...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 星座连线区域 -->
+        <div id="constellation" class="glass rounded-2xl shadow-xl p-8 mb-12 w-full max-w-4xl transform transition-all duration-500 hover:shadow-2xl">
+            <h2 class="text-2xl font-love font-bold text-center mb-6 gradient-text">我们的星座连线</h2>
+            <div class="flex justify-center">
+                <canvas id="starCanvas" width="300" height="300" class="bg-black/5 rounded-full"></canvas>
+            </div>
+            <p class="text-center text-gray-600 mt-4">金牛座的稳重与双鱼座的浪漫，是天作之合的搭配...</p>
+        </div>
+        
+        <!-- 第一页：表白页面 -->
+        <div id="page1" class="w-full page-transition">
+            <!-- 标题区域 -->
+            <div class="text-center mb-12">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-love font-bold gradient-text mb-4">致婷婷</h1>
+                <div class="relative inline-block">
+                    <div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+                        <i class="fa fa-heart text-love text-5xl animate-heartbeat"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 信件区域 -->
+            <div class="glass rounded-2xl shadow-xl p-8 md:p-12 mb-12 max-w-2xl mx-auto border border-white/30">
+                <div class="text-gray-700 leading-relaxed mb-8 space-y-4">
+                    <p class="text-lg">婷婷，真的特别庆幸我们能相遇。</p>
+                    <p class="text-lg">7月10号凌晨那次熬夜，就因为一个偶然的视频，你在评论区留言，我刚好回复——缘分就这么悄悄来了。</p>
+                    <p class="text-lg">那天凌晨你陪着我熬夜聊天，昨晚又打了一整晚的电话，从陌生到熟悉的每一分每一秒，我都悄悄记在心里，特别珍惜。</p>
+                    <p class="text-lg text-primary/90">可是今天晚上，我确实犯了错。</p>
+                    <p class="text-lg">你发了那么多消息，我却没及时回复，让你等着、或许还担心了。一想到这里我就特别愧疚。</p>
+                    <p class="text-lg">婷婷，真的对不起，是我不好。这次是我太疏忽了，忽略了你的感受，我心里特别过意不去。</p>
+                    <p class="text-lg font-medium">往后我一定会多上点心，把你的消息放在心上，尽量不让你再经历这种等待的失落。</p>
+                    <p class="text-lg mt-6">请你相信我，这次真的是我的错。</p>
+                    <p class="text-lg font-bold text-center mt-4">能原谅我这一次吗？</p>
+                </div>
+                
+                <!-- 按钮区域 -->
+                <div class="flex flex-wrap justify-center gap-6 mt-10">
+                    <button id="acceptBtn" class="btn-hover px-8 py-4 bg-gradient-to-r from-love to-primary text-white rounded-full text-lg font-semibold shadow-lg flex items-center">
+                        <i class="fa fa-heart mr-2"></i>原谅你啦
+                    </button>
+                    <button id="rejectBtn" class="btn-hover px-8 py-4 bg-white/70 hover:bg-white text-gray-700 rounded-full text-lg font-semibold shadow-md relative overflow-hidden flex items-center">
+                        <i class="fa fa-clock-o mr-2"></i>再想想
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第二页：接受结果页面 -->
+        <div id="page2" class="w-full hidden page-transition">
+            <!-- 庆祝动画区域 -->
+            <div id="celebration" class="fixed inset-0 pointer-events-none z-50"></div>
+            
+            <!-- 内容区域 -->
+            <div class="text-center mb-10">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-love font-bold text-love mb-6">太好了！</h1>
+                <div class="relative inline-block">
+                    <div class="w-24 h-24 rounded-full bg-love/20 flex items-center justify-center animate-pulse">
+                        <i class="fa fa-heart text-love text-7xl animate-heartbeat"></i>
+                    </div>
+                </div>
+                <p class="text-[clamp(1.2rem,3vw,1.8rem)] text-gray-700 mb-8 max-w-2xl mx-auto mt-6">
+                    其实等待的时候确实有点小委屈，但现在看到你的真心啦
+                </p>
+            </div>
+            
+            <!-- 卡片区域 -->
+            <div class="glass rounded-2xl shadow-xl p-8 md:p-12 mb-12 max-w-2xl mx-auto border border-white/30">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-xl bg-white/50 hover:bg-white/70 transition-all duration-300">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                            <i class="fa fa-comment text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-center">继续聊天吧</h3>
+                        <p class="text-gray-600 text-center">还有好多话想跟你说，关于生活的点点滴滴</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-white/50 hover:bg-white/70 transition-all duration-300">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                            <i class="fa fa-moon-o text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2 text-center">下次别迟到啦</h3>
+                        <p class="text-gray-600 text-center">消息要及时回哦，不然会担心你的呀</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center">
+                    <button id="shareBtn" class="btn-hover px-8 py-4 bg-gradient-to-r from-love to-primary text-white rounded-full text-lg font-semibold shadow-lg mx-auto">
+                        <i class="fa fa-smile-o mr-2"></i>继续我们的日常
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第三页：拒绝结果页面 -->
+        <div id="page3" class="w-full hidden page-transition">
+            <div class="text-center mb-10">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-love font-bold text-gray-500 mb-6">再等等吧</h1>
+                <div class="relative inline-block">
+                    <div class="w-20 h-20 rounded-full bg-gray-200/50 flex items-center justify-center">
+                        <i class="fa fa-hourglass-half text-gray-400 text-5xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass rounded-2xl shadow-xl p-8 md:p-12 mb-12 max-w-2xl mx-auto border border-white/30">
+                <div class="text-gray-700 leading-relaxed mb-8 space-y-4">
+                    <p class="text-lg">其实看到你的消息，我还是有点开心的。</p>
+                    <p class="text-lg">只是今天等待的时候，确实有点难过呢。</p>
+                    <p class="text-lg">或许再给我一点时间，让我慢慢平复下来？</p>
+                    <p class="text-lg">我相信你说的会改，但需要一点点时间来相信呀。</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 mt-10">
+                    <button id="tryAgainBtn" class="btn-hover px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-full text-lg font-semibold shadow-lg">
+                        <i class="fa fa-refresh mr-2"></i>我会等你
+                    </button>
+                    <button id="closeBtn" class="btn-hover px-8 py-4 bg-white/70 hover:bg-white text-gray-700 rounded-full text-lg font-semibold shadow-md">
+                        <i class="fa fa-times mr-2"></i>稍后再聊
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 第四页：日常分享页面 -->
+        <div id="page4" class="w-full hidden page-transition">
+            <div class="glass rounded-2xl shadow-xl p-8 md:p-12 mb-12 max-w-2xl mx-auto border border-white/30">
+                <h2 class="text-2xl font-love font-bold text-center mb-6 gradient-text">我们的日常</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fa fa-coffee text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">早餐分享</h3>
+                            <p class="text-gray-600">每天早上分享各自的早餐，看看谁的更有创意</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4 flex-shrink-0">
+                            <i class="fa fa-camera text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg">生活瞬间</h3>
+                            <p class="text-gray-600">分享日常生活中的有趣瞬间和小确幸</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center">
+                    <button id="backBtn" class="btn-hover px-8 py-4 bg-gradient-to-r from-love to-primary text-white rounded-full text-lg font-semibold shadow-lg mx-auto">
+                        <i class="fa fa-arrow-left mr-2"></i>回到开始
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 粒子背景配置
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#FF3366" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#FF3366",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 1,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 0.5 } },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // 星座连线（金牛座和双鱼座）
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 创建星座点（调整为金牛和双鱼的典型星图分布）
+        const stars = [
+            { x: 90, y: 120 },  // 金牛座主星点 (头部)
+            { x: 120, y: 160 }, // 金牛座肩部
+            { x: 100, y: 180 }, // 金牛座前蹄
+            { x: 140, y: 190 }, // 金牛座后蹄
+            { x: 160, y: 150 }, // 金牛座尾部
+            
+            { x: 210, y: 180 }, // 双鱼座主星点 (头部)
+            { x: 230, y: 150 }, // 双鱼座弯曲处
+            { x: 210, y: 120 }, // 双鱼座尾部上点
+            { x: 190, y: 140 }, // 双鱼座尾部下点
+            
+            { x: 150, y: 140 }  // 连接两颗星座的中间点
+        ];
+        
+        // 绘制星座
+        function drawConstellation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制星空背景
+            ctx.fillStyle = '#1A1A2E';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制星星
+            stars.forEach((star, index) => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, 3, 0, Math.PI * 2);
+                
+                // 金牛座用金色调，双鱼座用蓝色调
+                if (index <= 4) {
+                    ctx.fillStyle = '#FFD700'; // 金牛座金色
+                } else if (index <= 8) {
+                    ctx.fillStyle = '#87CEFA'; // 双鱼座蓝色
+                } else {
+                    ctx.fillStyle = '#FFB6C1'; // 连接点用粉色
+                }
+                
+                ctx.fill();
+                ctx.closePath();
+            });
+            
+            // 绘制连线
+            // 金牛座连线（稳重的线条）
+            ctx.beginPath();
+            ctx.moveTo(stars[0].x, stars[0].y);
+            ctx.lineTo(stars[1].x, stars[1].y);
+            ctx.lineTo(stars[2].x, stars[2].y);
+            ctx.lineTo(stars[3].x, stars[3].y);
+            ctx.lineTo(stars[4].x, stars[4].y);
+            ctx.lineTo(stars[1].x, stars[1].y);
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.closePath();
+            
+            // 双鱼座连线（流动的曲线）
+            ctx.beginPath();
+            ctx.moveTo(stars[5].x, stars[5].y);
+            ctx.quadraticCurveTo(stars[6].x, stars[6].y, stars[7].x, stars[7].y);
+            ctx.moveTo(stars[6].x, stars[6].y);
+            ctx.quadraticCurveTo(stars[6].x - 10, stars[6].y + 10, stars[8].x, stars[8].y);
+            ctx.strokeStyle = 'rgba(135, 206, 250, 0.6)';
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+            ctx.closePath();
+            
+            // 连接两个星座的线
+            ctx.beginPath();
+            ctx.moveTo(stars[4].x, stars[4].y);
+            ctx.lineTo(stars[9].x, stars[9].y);
+            ctx.lineTo(stars[5].x, stars[5].y);
+            ctx.strokeStyle = 'rgba(255, 182, 193, 0.8)';
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+            ctx.closePath();
+        }
+        
+        // 动画效果
+        let angle = 0;
+        function animateConstellation() {
+            angle += 0.01;
+            
+            // 让星星有轻微浮动
+            stars.forEach(star => {
+                // 金牛座的星星移动幅度较小（稳重）
+                if (stars.indexOf(star) <= 4) {
+                    star.x += Math.cos(angle * 0.8) * 0.2;
+                    star.y += Math.sin(angle * 0.8) * 0.2;
+                } 
+                // 双鱼座的星星移动幅度较大（灵动）
+                else if (stars.indexOf(star) <= 8) {
+                    star.x += Math.cos(angle) * 0.4;
+                    star.y += Math.sin(angle) * 0.4;
+                } 
+                // 连接点移动适中
+                else {
+                    star.x += Math.cos(angle * 0.9) * 0.3;
+                    star.y += Math.sin(angle * 0.9) * 0.3;
+                }
+            });
+            
+            drawConstellation();
+            requestAnimationFrame(animateConstellation);
+        }
+        
+        // 初始化星座动画
+        drawConstellation();
+        animateConstellation();
+        
+        // 获取DOM元素
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        const page4 = document.getElementById('page4');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const rejectBtn = document.getElementById('rejectBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const backBtn = document.getElementById('backBtn');
+        const celebration = document.getElementById('celebration');
+        
+        // 页面切换函数
+        function showPage(pageElement) {
+            // 隐藏所有页面
+            [page1, page2, page3, page4].forEach(page => {
+                page.classList.add('hidden');
+                page.style.opacity = '0';
+            });
+            
+            // 显示指定页面
+            pageElement.classList.remove('hidden');
+            setTimeout(() => {
+                pageElement.style.opacity = '1';
+            }, 50);
+        }
+        
+        // 随机移动拒绝按钮
+        rejectBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - rejectBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - rejectBtn.offsetHeight - 20;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            rejectBtn.style.position = 'absolute';
+            rejectBtn.style.left = `${randomX}px`;
+            rejectBtn.style.top = `${randomY}px`;
+        });
+        
+        // 接受表白
+        acceptBtn.addEventListener('click', () => {
+            page1.style.opacity = '0';
+            setTimeout(() => {
+                page1.classList.add('hidden');
+                page2.classList.remove('hidden');
+                setTimeout(() => {
+                    page2.style.opacity = '1';
+                    createCelebration();
+                }, 50);
+            }, 500);
+        });
+        
+        // 拒绝表白
+        rejectBtn.addEventListener('click', () => {
+            page1.style.opacity = '0';
+            setTimeout(() => {
+                page1.classList.add('hidden');
+                page3.classList.remove('hidden');
+                setTimeout(() => {
+                    page3.style.opacity = '1';
+                }, 50);
+            }, 500);
+        });
+        
+        // 再给一次机会
+        tryAgainBtn.addEventListener('click', () => {
+            page3.style.opacity = '0';
+            setTimeout(() => {
+                page3.classList.add('hidden');
+                page1.classList.remove('hidden');
+                setTimeout(() => {
+                    page1.style.opacity = '1';
+                    rejectBtn.style.position = 'static';
+                }, 50);
+            }, 500);
+        });
+        
+        // 关闭按钮
+        closeBtn.addEventListener('click', () => {
+            alert('我会好好反思的，等你愿意给我机会❤️');
+        });
+        
+        // 分享按钮（继续我们的日常）
+        shareBtn.addEventListener('click', () => {
+            page2.style.opacity = '0';
+            setTimeout(() => {
+                page2.classList.add('hidden');
+                page4.classList.remove('hidden');
+                setTimeout(() => {
+                    page4.style.opacity = '1';
+                }, 50);
+            }, 500);
+        });
+        
+        // 返回按钮
+        backBtn.addEventListener('click', () => {
+            page4.style.opacity = '0';
+            setTimeout(() => {
+                page4.classList.add('hidden');
+                page1.classList.remove('hidden');
+                setTimeout(() => {
+                    page1.style.opacity = '1';
+                }, 50);
+            }, 500);
+        });
+        
+        // 创建庆祝动画
+        function createCelebration() {
+            celebration.innerHTML = '';
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti absolute';
+                    confetti.style.width = `${Math.random() * 12 + 8}px`;
+                    confetti.style.height = `${Math.random() * 4 + 2}px`;
+                    confetti.style.backgroundColor = ['#FF4B91', '#FFB6C1', '#FF85A1', '#FF2E63', '#FFD1DC', '#E91E63'][Math.floor(Math.random() * 6)];
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.top = '-50px';
+                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    confetti.style.animation = `fall ${4 + Math.random() * 6}s linear forwards`;
+                    celebration.appendChild(confetti);
+                    
+                    // 动画结束后移除元素
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 10000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
+    
